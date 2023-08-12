@@ -1,4 +1,4 @@
-# EHRcommons - time
+# EHR Commons Time
 
 > Implementation of the openEHR `base.foundation_types.time` package
 
