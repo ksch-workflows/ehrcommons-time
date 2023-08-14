@@ -1,0 +1,24 @@
+plugins {
+    id('io.freefair.lombok') version '8.1.0'
+    id('java')
+}
+
+group = 'org.ksplus'
+version = '0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compileOnly('jakarta.annotation:jakarta.annotation-api:2.1.0')
+    implementation('com.experimental-software.base:foundation-types-api:+')
+    testImplementation('org.hamcrest:hamcrest:2.2')
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    testImplementation('org.junit:junit-bom:5.9.1')
+}
+
+test {
+    useJUnitPlatform()
+}
