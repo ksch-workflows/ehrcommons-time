@@ -121,6 +121,7 @@ public class TimeDefinitionsImpl implements TimeDefinitions {
         ){}
 
         TimeParts timeParts;
+        // TODO Define pattern as constant
         Pattern pattern = Pattern.compile("(?<localTime>.*)(?<timezone>[Z+-].*)");
         Matcher m = pattern.matcher(s);
         if (m.matches()) {

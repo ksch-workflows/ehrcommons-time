@@ -1,5 +1,7 @@
 # EHR Commons Time
 
+TODO: Add link to Sonar test coverage report
+
 > Implementation of the openEHR `base.foundation_types.time` package
 
 ## Usage
@@ -9,6 +11,14 @@
 | **Package version** | **openEHR version** |
 |---------------------|---------------------|
 | 0.x                 | 1.2.x               |       
+
+## Development
+
+TODO: Add snippet for generation of test coverage report
+
+## License
+
+TODO: Add license information
 
 ## References
 
