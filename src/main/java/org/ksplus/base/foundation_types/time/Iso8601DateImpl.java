@@ -1,14 +1,32 @@
 package org.ksplus.base.foundation_types.time;
 
+import java.util.regex.Pattern;
+
 import org.openehr.base.foundation_types.time.Iso8601Date;
 import org.openehr.base.foundation_types.time.Iso8601Duration;
 import org.openehr.base.foundation_types.time.Iso8601Timezone;
 
 public class Iso8601DateImpl implements Iso8601Date {
 
+    private final String value;
+
+    public Iso8601DateImpl(String value) {
+        this.value = value;
+
+        switch (value.length()) {
+            case 4 -> {
+                if (!Pattern.matches("\\d{4}", value)) {
+                    throw new IllegalArgumentException("Provided value does not look like a valid date: " + value);
+                }
+            }
+            // TODO raise exception for other cases
+        }
+
+    }
+
     @Override
     public Integer year() {
-        return null;
+        return Integer.valueOf(value.substring(0, 4));
     }
 
     @Override
@@ -21,6 +39,9 @@ public class Iso8601DateImpl implements Iso8601Date {
         return null;
     }
 
+    /**
+     * @see <a href="https://discourse.openehr.org/t/timezone-of-iso-8601-date/4353">Timezone of ISO 8601 Date | discourse.openehr.org</a>
+     */
     @Override
     public Iso8601Timezone timezone() {
         return null;

@@ -16,7 +16,9 @@ dependencies {
     implementation('com.experimental-software.base:foundation-types-api:+')
     testImplementation('org.hamcrest:hamcrest:2.2')
     testImplementation('org.junit.jupiter:junit-jupiter')
-    testImplementation('org.junit:junit-bom:5.9.1')
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+
+    // TODO Add checkstyle linting rules
 }
 
 test {
