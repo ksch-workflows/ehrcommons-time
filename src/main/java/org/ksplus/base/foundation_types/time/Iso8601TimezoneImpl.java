@@ -1,6 +1,8 @@
 package org.ksplus.base.foundation_types.time;
 
+import java.time.DateTimeException;
 import java.time.ZoneId;
+import java.time.zone.ZoneRulesException;
 import java.util.TimeZone;
 
 import org.openehr.base.foundation_types.time.Iso8601Timezone;
@@ -25,6 +27,13 @@ public class Iso8601TimezoneImpl extends TimeDefinitionsImpl implements Iso8601T
         }
 
         checkNoZeroOffsetWithNegativeSign(normalizedValue);
+
+        // TODO Add some comments and consider other exception type
+        try {
+            ZoneId.of(value);
+        } catch (DateTimeException e) {
+            throw new IllegalArgumentException(e);
+        }
 
         this.value = normalizedValue;
     }

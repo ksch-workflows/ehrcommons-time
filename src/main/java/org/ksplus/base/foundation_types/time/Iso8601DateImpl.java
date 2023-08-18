@@ -62,13 +62,14 @@ public class Iso8601DateImpl implements Iso8601Date {
         if (parts.length == 2) {
             var timezonePart = parts[1];
             timezone = new Iso8601TimezoneImpl(timezonePart);
+            System.out.println();
         } else {
             timezone = null;
         }
 
         switch (datePart.length()) {
             case YYYY -> {
-                if (!Pattern.matches("\\d{4}", value)) {
+                if (!Pattern.matches("\\d{4}", datePart)) {
                     throw new DateFormatException(value);
                 }
                 // TODO Use regex match groups
@@ -78,7 +79,7 @@ public class Iso8601DateImpl implements Iso8601Date {
             }
             // Extended format
             case YYYY_DASH_MM_DASH_DD -> {
-                if (!Pattern.matches("\\d{4}-\\d{2}-\\d{2}", value)) {
+                if (!Pattern.matches("\\d{4}-\\d{2}-\\d{2}", datePart)) {
                     throw new DateFormatException(value);
                 }
                 // TODO Use regex match groups
@@ -87,7 +88,7 @@ public class Iso8601DateImpl implements Iso8601Date {
                 this.day = Integer.valueOf(datePart.substring(8));
             }
             case YYYY_DASH_MM -> {
-                if (!Pattern.matches("\\d{4}-\\d{2}", value)) {
+                if (!Pattern.matches("\\d{4}-\\d{2}", datePart)) {
                     throw new DateFormatException(value);
                 }
                 // TODO Use regex match groups
@@ -97,7 +98,7 @@ public class Iso8601DateImpl implements Iso8601Date {
             }
             // Basic format
             case YYYY_MM_DD -> {
-                if (!Pattern.matches("\\d{8}", value)) {
+                if (!Pattern.matches("\\d{8}", datePart)) {
                     throw new DateFormatException(value);
                 }
                 // TODO Use regex match groups
@@ -106,7 +107,7 @@ public class Iso8601DateImpl implements Iso8601Date {
                 this.day = Integer.valueOf(datePart.substring(6));
             }
             case YYYY_MM -> {
-                if (!Pattern.matches("\\d{6}", value)) {
+                if (!Pattern.matches("\\d{6}", datePart)) {
                     throw new DateFormatException(value);
                 }
                 // TODO Use regex match groups
@@ -146,12 +147,10 @@ public class Iso8601DateImpl implements Iso8601Date {
         return day != null ? day : 0;
     }
 
-    /**
-     * @see <a href="https://discourse.openehr.org/t/timezone-of-iso-8601-date/4353">Timezone of ISO 8601 Date | discourse.openehr.org</a>
-     */
+    // Also see https://discourse.openehr.org/t/timezone-of-iso-8601-date/4353
     @Override
     public Iso8601Timezone timezone() {
-        return null;
+        return timezone;
     }
 
     @Override

@@ -3,8 +3,11 @@ package org.ksplus.base.foundation_types.time;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -12,6 +15,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.openehr.base.foundation_types.time.Iso8601Date;
+import org.openehr.base.foundation_types.time.Iso8601Timezone;
 
 class Iso8601DateTest {
 
@@ -20,11 +24,23 @@ class Iso8601DateTest {
 
         @ParameterizedTest
         @ValueSource(strings = {
+            "2023-02-12",
+            "2023-02-12T+03:00",
+        })
+        void should_accept_valid_date(String value) {
+            Iso8601Date date = new Iso8601DateImpl(value);
+            assertThat(date, notNullValue());
+        }
+
+        @ParameterizedTest
+        @ValueSource(strings = {
             "-1001",
             "abcd",
             "2023-",
             "20",
-            "2023-02-50"
+            "2023-02-50",
+            "2023-02-12T*03:00",
+            "2023-02-12T03:00",
         })
         void should_reject_invalid_date(String value) {
             assertThrows(
@@ -106,5 +122,30 @@ class Iso8601DateTest {
             }
         }
 
+        @Nested
+        @DisplayName("#timezone")
+        class Timezone {
+
+            @Test
+            void should_allow_void_value_for_timezone() {
+                Iso8601Date date = new Iso8601DateImpl("2023-08-18");
+
+                Iso8601Timezone timezone = date.timezone();
+
+                assertThat(timezone, nullValue());
+            }
+
+            @Test
+            void should_access_timezone() {
+                Iso8601Date date = new Iso8601DateImpl("2023-08-18T+03:30");
+
+                Iso8601Timezone timezone = date.timezone();
+
+                assertThat(timezone, notNullValue());
+                assertThat(timezone.sign(), equalTo(1));
+                assertThat(timezone.hour(), equalTo(3));
+                assertThat(timezone.minute(), equalTo(30));
+            }
+        }
     }
 }
