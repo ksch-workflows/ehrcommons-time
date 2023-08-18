@@ -138,12 +138,12 @@ public class Iso8601DateImpl implements Iso8601Date {
 
     @Override
     public Integer month() {
-        return null;
+        return month != null ? month : 0;
     }
 
     @Override
     public Integer day() {
-        return null;
+        return day != null ? day : 0;
     }
 
     /**
