@@ -71,6 +71,7 @@ public class Iso8601DateImpl implements Iso8601Date {
                 if (!Pattern.matches("\\d{4}", value)) {
                     throw new DateFormatException(value);
                 }
+                // TODO Use regex match groups
                 this.year = Integer.valueOf(datePart);
                 this.month = null;
                 this.day = null;
@@ -80,6 +81,7 @@ public class Iso8601DateImpl implements Iso8601Date {
                 if (!Pattern.matches("\\d{4}-\\d{2}-\\d{2}", value)) {
                     throw new DateFormatException(value);
                 }
+                // TODO Use regex match groups
                 this.year = Integer.valueOf(datePart.substring(0, 4));
                 this.month = Integer.valueOf(datePart.substring(5, 7));
                 this.day = Integer.valueOf(datePart.substring(8));
@@ -88,6 +90,7 @@ public class Iso8601DateImpl implements Iso8601Date {
                 if (!Pattern.matches("\\d{4}-\\d{2}", value)) {
                     throw new DateFormatException(value);
                 }
+                // TODO Use regex match groups
                 this.year = Integer.valueOf(datePart.substring(0, 4));
                 this.month = Integer.valueOf(datePart.substring(5, 7));
                 this.day = null;
@@ -97,6 +100,7 @@ public class Iso8601DateImpl implements Iso8601Date {
                 if (!Pattern.matches("\\d{8}", value)) {
                     throw new DateFormatException(value);
                 }
+                // TODO Use regex match groups
                 this.year = Integer.valueOf(datePart.substring(0, 4));
                 this.month = Integer.valueOf(datePart.substring(4, 6));
                 this.day = Integer.valueOf(datePart.substring(6));
@@ -105,6 +109,7 @@ public class Iso8601DateImpl implements Iso8601Date {
                 if (!Pattern.matches("\\d{6}", value)) {
                     throw new DateFormatException(value);
                 }
+                // TODO Use regex match groups
                 this.year = Integer.valueOf(datePart.substring(0, 4));
                 this.month = Integer.valueOf(datePart.substring(4, 6));
                 this.day = null;
@@ -118,8 +123,8 @@ public class Iso8601DateImpl implements Iso8601Date {
             //noinspection ResultOfMethodCallIgnored
             LocalDate.of(
                 year,
-                month != null ? month : 0,
-                day != null ? day : 0
+                month != null ? month : 1,
+                day != null ? day : 1
             );
         } catch (DateTimeException e) {
             throw new DateFormatException(value, e);
