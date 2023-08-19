@@ -155,7 +155,7 @@ public class Iso8601DateImpl implements Iso8601Date {
 
     @Override
     public Boolean monthUnknown() {
-        return null;
+        return month == null;
     }
 
     @Override

@@ -147,5 +147,28 @@ class Iso8601DateTest {
                 assertThat(timezone.minute(), equalTo(30));
             }
         }
+
+        @Nested
+        @DisplayName("#monthUnknown")
+        class MonthUnknown {
+
+            @Test
+            void should_yield_month_unknown() {
+                Iso8601Date date = new Iso8601DateImpl("2023");
+                assertThat(date.monthUnknown(), equalTo(true));
+            }
+
+            @ParameterizedTest
+            @ValueSource(strings = {
+                "2023-08",
+                "202308",
+                "2023-08-14",
+                "20230814",
+            })
+            void should_yield_month_known(String value) {
+                Iso8601Date date = new Iso8601DateImpl(value);
+                assertThat(date.monthUnknown(), equalTo(false));
+            }
+        }
     }
 }
