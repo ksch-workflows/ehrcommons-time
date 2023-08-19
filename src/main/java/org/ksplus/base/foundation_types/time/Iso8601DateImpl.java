@@ -176,7 +176,7 @@ public class Iso8601DateImpl implements Iso8601Date {
 
     @Override
     public Boolean isExtended() {
-        return null;
+        return value.contains("-");
     }
 
     @Override

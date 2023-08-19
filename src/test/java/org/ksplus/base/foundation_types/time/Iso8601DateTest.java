@@ -252,5 +252,33 @@ class Iso8601DateTest {
                 assertThat(date.isPartial(), equalTo(false));
             }
         }
+
+        @Nested
+        @DisplayName("#isExtended")
+        class IsExtended {
+
+            @ParameterizedTest
+            @ValueSource(strings = {
+                "2023",
+                "202308",
+                "20230814",
+                "20230814T+0300",
+            })
+            void should_yield_false_for_basic_format(String value) {
+                Iso8601Date date = new Iso8601DateImpl(value);
+                assertThat(date.isExtended(), equalTo(false));
+            }
+
+            @ParameterizedTest
+            @ValueSource(strings = {
+                "2023-08",
+                "2023-08-14",
+                "2023-08-14T+03:00",
+            })
+            void should_yield_true_for_extended_format(String value) {
+                Iso8601Date date = new Iso8601DateImpl(value);
+                assertThat(date.isExtended(), equalTo(true));
+            }
+        }
     }
 }
