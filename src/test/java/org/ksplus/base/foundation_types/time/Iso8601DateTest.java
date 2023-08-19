@@ -214,5 +214,43 @@ class Iso8601DateTest {
                 assertThat(date.getValue(), equalTo(value));
             }
         }
+
+        @Nested
+        @DisplayName("#isPartial")
+        class IsPartial {
+
+            @ParameterizedTest
+            @ValueSource(strings = {
+                "2023-08",
+                "202308",
+            })
+            void should_yield_true_for_missing_day(String value) {
+                Iso8601Date date = new Iso8601DateImpl(value);
+                assertThat(date.isPartial(), equalTo(true));
+            }
+
+            @Test
+            void should_yield_true_for_missing_month() {
+                Iso8601Date date = new Iso8601DateImpl("2023");
+                assertThat(date.isPartial(), equalTo(true));
+            }
+
+            // TBD: Should `isPartial` yield `true` if the timezone is missing?
+            // It not really clear whether the timezone is actually part of ISO 8601 or not.
+            // For practical use it appears to be interesting whether the day or month is missing in a date.
+            // The presence or absence of the timezone seems rather to be just a theoretical problem.
+            // So, for the time being
+            @ParameterizedTest
+            @ValueSource(strings = {
+                "2023-08-14",
+                "2023-08-14T+03:00",
+                "20230814",
+                "20230814T+0300",
+            })
+            void should_yield_false_for_complete_date(String value) {
+                Iso8601Date date = new Iso8601DateImpl(value);
+                assertThat(date.isPartial(), equalTo(false));
+            }
+        }
     }
 }

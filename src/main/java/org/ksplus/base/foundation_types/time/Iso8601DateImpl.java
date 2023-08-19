@@ -163,6 +163,7 @@ public class Iso8601DateImpl implements Iso8601Date {
         return day == null;
     }
 
+    @Nonnull
     @Override
     public String getValue() {
         return value;
@@ -170,7 +171,7 @@ public class Iso8601DateImpl implements Iso8601Date {
 
     @Override
     public Boolean isPartial() {
-        return null;
+        return monthUnknown() || dayUnknown();
     }
 
     @Override
