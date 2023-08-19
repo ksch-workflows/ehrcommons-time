@@ -160,7 +160,7 @@ public class Iso8601DateImpl implements Iso8601Date {
 
     @Override
     public Boolean dayUnknown() {
-        return null;
+        return day == null;
     }
 
     @Override

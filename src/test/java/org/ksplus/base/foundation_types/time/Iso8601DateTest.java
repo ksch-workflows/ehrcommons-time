@@ -170,5 +170,31 @@ class Iso8601DateTest {
                 assertThat(date.monthUnknown(), equalTo(false));
             }
         }
+
+        @Nested
+        @DisplayName("#dayUnknown")
+        class DayUnknown {
+
+            @ParameterizedTest
+            @ValueSource(strings = {
+                "2023-08-14",
+                "20230814",
+            })
+            void should_yield_day_known(String value) {
+                Iso8601Date date = new Iso8601DateImpl(value);
+                assertThat(date.dayUnknown(), equalTo(false));
+            }
+
+            @ParameterizedTest
+            @ValueSource(strings = {
+                "2023",
+                "2023-08",
+                "202308",
+            })
+            void should_yield_day_unknown(String value) {
+                Iso8601Date date = new Iso8601DateImpl(value);
+                assertThat(date.dayUnknown(), equalTo(true));
+            }
+        }
     }
 }
