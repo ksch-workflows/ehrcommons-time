@@ -181,7 +181,21 @@ public class Iso8601DateImpl implements Iso8601Date {
 
     @Override
     public String asString() {
-        return null;
+        StringBuilder result = new StringBuilder();
+        result.append(year);
+        if (month != null) {
+            result.append("-");
+            result.append(String.format("%02d", month));
+        }
+        if (day != null) {
+            result.append("-");
+            result.append(String.format("%02d", day));
+        }
+        if (timezone != null) {
+            result.append("T");
+            result.append(timezone.asString());
+        }
+        return result.toString();
     }
 
     @Override

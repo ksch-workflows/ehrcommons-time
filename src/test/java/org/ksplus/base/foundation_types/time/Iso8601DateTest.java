@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.openehr.base.foundation_types.time.Iso8601Date;
 import org.openehr.base.foundation_types.time.Iso8601Timezone;
@@ -278,6 +279,45 @@ class Iso8601DateTest {
             void should_yield_true_for_extended_format(String value) {
                 Iso8601Date date = new Iso8601DateImpl(value);
                 assertThat(date.isExtended(), equalTo(true));
+            }
+        }
+
+        @Nested
+        @DisplayName("#asString")
+        class AsString {
+
+            @ParameterizedTest
+            @CsvSource(value = {
+                "value, expected_result",
+                "2023, 2023",
+                "202308, 2023-08",
+                "20230819, 2023-08-19",
+                "20230819T-0200, 2023-08-19T-02:00",
+                "20230819T+0300, 2023-08-19T+03:00",
+            }, useHeadersInDisplayName = true)
+            void should_format_transform_base_format_to_extended_format(String value, String expectedResult) {
+                Iso8601Date date = new Iso8601DateImpl(value);
+                assertThat(date.asString(), equalTo(expectedResult));
+            }
+
+            // TBD: Should actually a minus character should be used instead of a hyphen to represent negative timezone offset?
+            // According to https://en.wikipedia.org/wiki/ISO_8601 the ISO 8601 requires that
+            // "If the character set has a minus sign, then that character should be used."
+            // However, while this would formally lead to standard compliance and nicely printed strings,
+            // it might lead to hard to diagnose program errors since the minus and hyphen are rendered equally
+            // in most fonts.
+
+            @ParameterizedTest
+            @CsvSource(value = {
+                "value, expected_result",
+                "2023-08, 2023-08",
+                "2023-08-19, 2023-08-19",
+                "2023-08-19T-03:00, 2023-08-19T-03:00",
+                "2023-08-19T+03:00, 2023-08-19T+03:00",
+            }, useHeadersInDisplayName = true)
+            void should_keep_extended_format(String value, String expectedResult) {
+                Iso8601Date date = new Iso8601DateImpl(value);
+                assertThat(date.asString(), equalTo(expectedResult));
             }
         }
     }
