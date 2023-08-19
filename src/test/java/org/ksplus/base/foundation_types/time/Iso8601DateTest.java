@@ -196,5 +196,23 @@ class Iso8601DateTest {
                 assertThat(date.dayUnknown(), equalTo(true));
             }
         }
+
+        @Nested
+        @DisplayName("#getValue")
+        class GetValue {
+
+            @ParameterizedTest
+            @ValueSource(strings = {
+                "2023",
+                "2023-08",
+                "2023-08-14",
+                "202308",
+                "20230814",
+            })
+            void should_return_original_value(String value) {
+                Iso8601Date date = new Iso8601DateImpl(value);
+                assertThat(date.getValue(), equalTo(value));
+            }
+        }
     }
 }

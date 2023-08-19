@@ -165,7 +165,7 @@ public class Iso8601DateImpl implements Iso8601Date {
 
     @Override
     public String getValue() {
-        return null;
+        return value;
     }
 
     @Override
