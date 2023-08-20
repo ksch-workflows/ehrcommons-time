@@ -30,7 +30,7 @@ public class Iso8601TimezoneImpl extends TimeDefinitionsImpl implements Iso8601T
 
         // TODO Add some comments and consider other exception type
         try {
-            ZoneId.of(value);
+            ZoneId.of(value.replace(MINUS, HYPHEN));
         } catch (DateTimeException e) {
             throw new IllegalArgumentException(e);
         }
