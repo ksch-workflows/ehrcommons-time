@@ -90,7 +90,10 @@ class Iso8601DateTest {
                 String value, @SuppressWarnings("unused") Integer expectedYear, Integer expectedMonth
             ) {
                 Iso8601Date date = new Iso8601DateImpl(value);
-                assertThat(date.month(), equalTo(expectedMonth));
+
+                Integer result = date.month();
+
+                assertThat(result, equalTo(expectedMonth));
             }
         }
 

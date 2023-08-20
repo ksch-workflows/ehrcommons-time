@@ -199,27 +199,27 @@ public class Iso8601DateImpl implements Iso8601Date {
     }
 
     @Override
-    public Iso8601Date add(Object o) {
+    public Iso8601Date add(Iso8601Duration aDiff) {
         return null;
     }
 
     @Override
-    public Iso8601Date subtract(Object o) {
+    public Iso8601Date subtract(Iso8601Duration aDiff) {
         return null;
     }
 
     @Override
-    public Iso8601Duration diff(Object o) {
+    public Iso8601Duration diff(Iso8601Date aDate) {
         return null;
     }
 
     @Override
-    public Iso8601Date addNominal(Object o) {
+    public Iso8601Date addNominal(Iso8601Duration aDiff) {
         return null;
     }
 
     @Override
-    public Iso8601Date subtractNominal(Object o) {
+    public Iso8601Date subtractNominal(Iso8601Duration aDiff) {
         return null;
     }
 
@@ -243,6 +243,7 @@ public class Iso8601DateImpl implements Iso8601Date {
         return null;
     }
 
+    // TODO Use implementation from abstract base class
     @Override
     public Boolean validYear(Integer integer) {
         return null;
@@ -253,11 +254,13 @@ public class Iso8601DateImpl implements Iso8601Date {
         return null;
     }
 
+    // TODO Add PR in openEHR Jira to improve the variable names since they seem to be ambiguous.
     @Override
     public Boolean validDay(Integer integer, Integer integer1, Integer integer2) {
         return null;
     }
 
+    // TODO Add PR in openEHR Jira to improve the variable names since they seem to be ambiguous.
     @Override
     public Boolean validHour(Integer integer, Integer integer1, Integer integer2) {
         return null;
