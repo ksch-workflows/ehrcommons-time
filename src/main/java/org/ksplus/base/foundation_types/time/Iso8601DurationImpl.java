@@ -22,6 +22,7 @@ public class Iso8601DurationImpl extends TimeDefinitionsImpl implements Iso8601D
         return null;
     }
 
+    @Nonnull
     @Override
     public String getValue() {
         return value;
@@ -46,27 +47,58 @@ public class Iso8601DurationImpl extends TimeDefinitionsImpl implements Iso8601D
 
     @Override
     public Integer months() {
-        return 0;
+        // TODO Create constant
+        Pattern MONTHS_PATTERN = Pattern.compile("(\\d+)M.*T?");
+        Matcher m = MONTHS_PATTERN.matcher(value);
+        if (m.find()) {
+            return Integer.parseInt(m.group(1));
+        } else {
+            return 0;
+        }
     }
 
     @Override
     public Integer days() {
-        return 0;
+        Pattern DAYS_PATTERN = Pattern.compile("(\\p{Digit}+)D");
+        Matcher m = DAYS_PATTERN.matcher(value);
+        if (m.find()) {
+            return Integer.parseInt(m.group(1));
+        } else {
+            return 0;
+        }
     }
 
     @Override
     public Integer hours() {
-        return 0;
+        Pattern HOURS_PATTERN = Pattern.compile("T.*?(\\d+)H");
+        Matcher m = HOURS_PATTERN.matcher(value);
+        if (m.find()) {
+            return Integer.parseInt(m.group(1));
+        } else {
+            return 0;
+        }
     }
 
     @Override
     public Integer minutes() {
-        return 0;
+        Pattern MINUTES_PATTERN = Pattern.compile("T.*?(\\d+)M");
+        Matcher m = MINUTES_PATTERN.matcher(value);
+        if (m.find()) {
+            return Integer.parseInt(m.group(1));
+        } else {
+            return 0;
+        }
     }
 
     @Override
     public Integer seconds() {
-        return 0;
+        Pattern SECONDS_PATTERN = Pattern.compile("T.*?(\\d+)S");
+        Matcher m = SECONDS_PATTERN.matcher(value);
+        if (m.find()) {
+            return Integer.parseInt(m.group(1));
+        } else {
+            return 0;
+        }
     }
 
     @Override
