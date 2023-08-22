@@ -92,10 +92,16 @@ public class Iso8601DurationImpl extends TimeDefinitionsImpl implements Iso8601D
 
     @Override
     public Integer seconds() {
-        Pattern SECONDS_PATTERN = Pattern.compile("T.*?(\\d+)S");
+        Pattern SECONDS_PATTERN = Pattern.compile("T.*?([\\d.,]+)S");
         Matcher m = SECONDS_PATTERN.matcher(value);
         if (m.find()) {
-            return Integer.parseInt(m.group(1));
+            return Double.valueOf(
+                Math.floor(
+                    Double.parseDouble(
+                        m.group(1).replace(",", ".")
+                    )
+                )
+            ).intValue();
         } else {
             return 0;
         }
@@ -103,7 +109,14 @@ public class Iso8601DurationImpl extends TimeDefinitionsImpl implements Iso8601D
 
     @Override
     public Double fractionalSeconds() {
-        return null;
+        Pattern SECONDS_PATTERN = Pattern.compile("T.*?([\\d,.]+)S");
+        Matcher m = SECONDS_PATTERN.matcher(value);
+        if (m.find()) {
+            double seconds = Double.parseDouble(m.group(1).replace(",", "."));
+            return seconds - Math.floor(seconds);
+        } else {
+            return 0.0;
+        }
     }
 
     @Override

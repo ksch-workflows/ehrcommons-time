@@ -2,7 +2,6 @@ package org.ksplus.base.foundation_types.time;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 import org.openehr.base.foundation_types.time.Iso8601Date;

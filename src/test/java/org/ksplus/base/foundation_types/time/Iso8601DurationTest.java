@@ -3,6 +3,8 @@ package org.ksplus.base.foundation_types.time;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.openehr.base.foundation_types.time.Iso8601Duration;
 
@@ -27,5 +29,31 @@ class Iso8601DurationTest {
         Iso8601Duration duration = new Iso8601DurationImpl("P12MT42M");
         assertThat(duration.months(), equalTo(12));
         assertThat(duration.minutes(), equalTo(42));
+    }
+
+    @Nested
+    @DisplayName("#fractionalSeconds")
+    class FractionalSeconds {
+
+        @Test
+        void should_parse_second_without_fraction() {
+            Iso8601Duration duration = new Iso8601DurationImpl("PT42S");
+            assertThat(duration.seconds(), equalTo(42));
+            assertThat(duration.fractionalSeconds(), equalTo(0.0));
+        }
+
+        @Test
+        void should_parse_second_with_comma_and_fraction() {
+            Iso8601Duration duration = new Iso8601DurationImpl("PT42,5S");
+            assertThat(duration.seconds(), equalTo(42));
+            assertThat(duration.fractionalSeconds(), equalTo(0.5));
+        }
+
+        @Test
+        void should_parse_second_with_period_and_fraction() {
+            Iso8601Duration duration = new Iso8601DurationImpl("PT42.5S");
+            assertThat(duration.seconds(), equalTo(42));
+            assertThat(duration.fractionalSeconds(), equalTo(0.5));
+        }
     }
 }
