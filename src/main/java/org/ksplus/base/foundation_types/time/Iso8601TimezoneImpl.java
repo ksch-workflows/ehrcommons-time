@@ -9,6 +9,7 @@ import org.openehr.base.foundation_types.time.Iso8601Timezone;
 
 import lombok.NonNull;
 
+// TODO Rename to "EhrTimezone"
 public class Iso8601TimezoneImpl extends TimeDefinitionsImpl implements Iso8601Timezone  {
 
     private static final String MINUS = "−";

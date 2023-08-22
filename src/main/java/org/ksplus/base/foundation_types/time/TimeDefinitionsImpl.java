@@ -19,6 +19,7 @@ import lombok.NonNull;
  */
 @NoArgsConstructor
 @SuppressWarnings("RedundantIfStatement")
+// TODO Rename to "EhrTimeDefinitions"
 public class TimeDefinitionsImpl implements TimeDefinitions {
 
     private static final Pattern YYYY_MM_DD_EXTENDED = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");

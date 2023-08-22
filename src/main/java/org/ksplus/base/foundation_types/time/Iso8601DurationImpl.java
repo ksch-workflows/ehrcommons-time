@@ -8,6 +8,7 @@ import org.openehr.base.foundation_types.time.Iso8601Duration;
 
 import jakarta.annotation.Nonnull;
 
+// TODO Rename to "EhrDuration"
 public class Iso8601DurationImpl extends TimeDefinitionsImpl implements Iso8601Duration {
 
     @Nonnull

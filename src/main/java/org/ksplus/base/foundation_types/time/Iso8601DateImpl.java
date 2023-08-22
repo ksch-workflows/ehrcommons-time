@@ -11,6 +11,7 @@ import org.openehr.base.foundation_types.time.Iso8601Timezone;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
+// TODO Rename to "EhrDate"
 public class Iso8601DateImpl implements Iso8601Date {
 
     /**

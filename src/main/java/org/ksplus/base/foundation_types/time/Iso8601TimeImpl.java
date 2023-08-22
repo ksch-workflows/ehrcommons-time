@@ -4,6 +4,7 @@ import org.openehr.base.foundation_types.time.Iso8601Duration;
 import org.openehr.base.foundation_types.time.Iso8601Time;
 import org.openehr.base.foundation_types.time.Iso8601Timezone;
 
+// TODO Rename to "EhrTime"
 public class Iso8601TimeImpl implements Iso8601Time {
 
     @Override
