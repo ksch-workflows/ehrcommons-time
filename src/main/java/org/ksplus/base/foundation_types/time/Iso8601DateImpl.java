@@ -62,7 +62,6 @@ public class Iso8601DateImpl implements Iso8601Date {
         if (parts.length == 2) {
             var timezonePart = parts[1];
             timezone = new Iso8601TimezoneImpl(timezonePart);
-            System.out.println();
         } else {
             timezone = null;
         }
