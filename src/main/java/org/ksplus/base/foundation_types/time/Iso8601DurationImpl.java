@@ -122,7 +122,13 @@ public class Iso8601DurationImpl extends TimeDefinitionsImpl implements Iso8601D
 
     @Override
     public Integer weeks() {
-        return 0;
+        Pattern WEEKS_PATTERN = Pattern.compile("(\\d+)W");
+        Matcher m = WEEKS_PATTERN.matcher(value);
+        if (m.find()) {
+            return Integer.parseInt(m.group(1));
+        } else {
+            return 0;
+        }
     }
 
     @Override

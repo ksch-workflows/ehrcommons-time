@@ -56,4 +56,15 @@ class Iso8601DurationTest {
             assertThat(duration.fractionalSeconds(), equalTo(0.5));
         }
     }
+
+    @Nested
+    @DisplayName("#weeks")
+    class Weeks {
+
+        @Test
+        void should_access_number_of_weeks() {
+            Iso8601Duration duration = new Iso8601DurationImpl("P12W");
+            assertThat(duration.weeks(), equalTo(12));
+        }
+    }
 }
