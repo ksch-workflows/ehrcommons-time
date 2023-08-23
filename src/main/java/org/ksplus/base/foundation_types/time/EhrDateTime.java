@@ -12,8 +12,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import lombok.NonNull;
 
-// TODO Rename to "EhrDateTime"
-public class Iso8601DateTimeImpl extends TimeDefinitionsImpl implements Iso8601DateTime {
+public class EhrDateTime extends EhrTimeDefinitions implements Iso8601DateTime {
 
     private static final String MINUS = "−";
 
@@ -30,7 +29,7 @@ public class Iso8601DateTimeImpl extends TimeDefinitionsImpl implements Iso8601D
     @Nullable
     private final String timeValue;
 
-    public Iso8601DateTimeImpl(@NonNull String value) {
+    public EhrDateTime(@NonNull String value) {
         checkThatOnlyCharactersDefinedByIso8601AreUsed(value);
 
         this.value = value;

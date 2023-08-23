@@ -2,15 +2,13 @@ package org.ksplus.base.foundation_types.time;
 
 import java.time.DateTimeException;
 import java.time.ZoneId;
-import java.time.zone.ZoneRulesException;
 import java.util.TimeZone;
 
 import org.openehr.base.foundation_types.time.Iso8601Timezone;
 
 import lombok.NonNull;
 
-// TODO Rename to "EhrTimezone"
-public class Iso8601TimezoneImpl extends TimeDefinitionsImpl implements Iso8601Timezone  {
+public class EhrTimezone extends EhrTimeDefinitions implements Iso8601Timezone  {
 
     private static final String MINUS = "−";
 
@@ -18,7 +16,7 @@ public class Iso8601TimezoneImpl extends TimeDefinitionsImpl implements Iso8601T
 
     private final String value;
 
-    public Iso8601TimezoneImpl(String value) {
+    public EhrTimezone(String value) {
         if (value == null) {
             throw new IllegalArgumentException("Timezone value must not be null");
         }

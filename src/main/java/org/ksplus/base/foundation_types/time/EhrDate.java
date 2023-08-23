@@ -11,8 +11,7 @@ import org.openehr.base.foundation_types.time.Iso8601Timezone;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
-// TODO Rename to "EhrDate"
-public class Iso8601DateImpl implements Iso8601Date {
+public class EhrDate implements Iso8601Date {
 
     /**
      * e.g. 2003-02-20
@@ -54,14 +53,14 @@ public class Iso8601DateImpl implements Iso8601Date {
     @Nullable
     private final Iso8601Timezone timezone;
 
-    public Iso8601DateImpl(@Nonnull String value) {
+    public EhrDate(@Nonnull String value) {
         this.value = value;
 
         var parts = value.split("T");
         var datePart = parts[0];
         if (parts.length == 2) {
             var timezonePart = parts[1];
-            timezone = new Iso8601TimezoneImpl(timezonePart);
+            timezone = new EhrTimezone(timezonePart);
         } else {
             timezone = null;
         }

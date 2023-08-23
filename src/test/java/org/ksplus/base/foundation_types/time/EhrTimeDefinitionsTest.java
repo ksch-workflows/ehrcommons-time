@@ -9,12 +9,11 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.ksplus.base.foundation_types.time.TimeDefinitionsImpl;
 import org.openehr.base.foundation_types.time.TimeDefinitions;
 
-class TimeDefinitionsTest {
+class EhrTimeDefinitionsTest {
 
-    private final TimeDefinitions timeDefinitions = new TimeDefinitionsImpl();
+    private final TimeDefinitions timeDefinitions = new EhrTimeDefinitions();
 
     @Nested
     @DisplayName("#validYear")

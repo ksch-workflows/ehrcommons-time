@@ -10,14 +10,14 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.openehr.base.foundation_types.time.Iso8601Duration;
 
-class Iso8601DurationTest {
+class EhrDurationTest {
 
     /**
      * @see <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">wikipedia.org</a>
      */
     @Test
     void should_provide_values_from_example_at_wikipedia() {
-        Iso8601Duration duration = new Iso8601DurationImpl("P3Y6M4DT12H30M5S");
+        Iso8601Duration duration = new EhrDuration("P3Y6M4DT12H30M5S");
         assertThat(duration.years(), equalTo(3));
         assertThat(duration.months(), equalTo(6));
         assertThat(duration.days(), equalTo(4));
@@ -28,7 +28,7 @@ class Iso8601DurationTest {
 
     @Test
     void should_disambiguate_month_and_minute() {
-        Iso8601Duration duration = new Iso8601DurationImpl("P12MT42M");
+        Iso8601Duration duration = new EhrDuration("P12MT42M");
         assertThat(duration.months(), equalTo(12));
         assertThat(duration.minutes(), equalTo(42));
     }
@@ -39,21 +39,21 @@ class Iso8601DurationTest {
 
         @Test
         void should_parse_second_without_fraction() {
-            Iso8601Duration duration = new Iso8601DurationImpl("PT42S");
+            Iso8601Duration duration = new EhrDuration("PT42S");
             assertThat(duration.seconds(), equalTo(42));
             assertThat(duration.fractionalSeconds(), equalTo(0.0));
         }
 
         @Test
         void should_parse_second_with_comma_and_fraction() {
-            Iso8601Duration duration = new Iso8601DurationImpl("PT42,5S");
+            Iso8601Duration duration = new EhrDuration("PT42,5S");
             assertThat(duration.seconds(), equalTo(42));
             assertThat(duration.fractionalSeconds(), equalTo(0.5));
         }
 
         @Test
         void should_parse_second_with_period_and_fraction() {
-            Iso8601Duration duration = new Iso8601DurationImpl("PT42.5S");
+            Iso8601Duration duration = new EhrDuration("PT42.5S");
             assertThat(duration.seconds(), equalTo(42));
             assertThat(duration.fractionalSeconds(), equalTo(0.5));
         }
@@ -65,7 +65,7 @@ class Iso8601DurationTest {
 
         @Test
         void should_access_number_of_weeks() {
-            Iso8601Duration duration = new Iso8601DurationImpl("P12W");
+            Iso8601Duration duration = new EhrDuration("P12W");
             assertThat(duration.weeks(), equalTo(12));
         }
     }
@@ -81,13 +81,13 @@ class Iso8601DurationTest {
         })
         @ParameterizedTest
         void should_yield_false(String value) {
-            Iso8601Duration duration = new Iso8601DurationImpl(value);
+            Iso8601Duration duration = new EhrDuration(value);
             assertThat(duration.isDecimalSignComma(), equalTo(false));
         }
 
         @Test
         void should_yield_true() {
-            Iso8601Duration duration = new Iso8601DurationImpl("PT42,5S");
+            Iso8601Duration duration = new EhrDuration("PT42,5S");
             assertThat(duration.isDecimalSignComma(), equalTo(true));
         }
     }

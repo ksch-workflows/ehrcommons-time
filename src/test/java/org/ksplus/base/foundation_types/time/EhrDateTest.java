@@ -2,12 +2,10 @@ package org.ksplus.base.foundation_types.time;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -18,7 +16,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.openehr.base.foundation_types.time.Iso8601Date;
 import org.openehr.base.foundation_types.time.Iso8601Timezone;
 
-class Iso8601DateTest {
+class EhrDateTest {
 
     @Nested
     class Constructor {
@@ -29,7 +27,7 @@ class Iso8601DateTest {
             "2023-02-12T+03:00",
         })
         void should_accept_valid_date(String value) {
-            Iso8601Date date = new Iso8601DateImpl(value);
+            Iso8601Date date = new EhrDate(value);
             assertThat(date, notNullValue());
         }
 
@@ -45,7 +43,7 @@ class Iso8601DateTest {
         })
         void should_reject_invalid_date(String value) {
             assertThrows(
-                IllegalArgumentException.class, () -> new Iso8601DateImpl(value)
+                IllegalArgumentException.class, () -> new EhrDate(value)
             );
         }
     }
@@ -63,7 +61,7 @@ class Iso8601DateTest {
             "20230814",
         })
         void should_access_year(String value) {
-            Iso8601Date date = new Iso8601DateImpl(value);
+            Iso8601Date date = new EhrDate(value);
 
             assertThat(date.year(), equalTo(2023));
         }
@@ -74,13 +72,13 @@ class Iso8601DateTest {
 
             @Test
             void should_access_month() {
-                Iso8601Date date = new Iso8601DateImpl("2023-08");
+                Iso8601Date date = new EhrDate("2023-08");
                 assertThat(date.month(), equalTo(8));
             }
 
             @Test
             void should_return_zero_if_month_not_present() {
-                Iso8601Date date = new Iso8601DateImpl("2023");
+                Iso8601Date date = new EhrDate("2023");
                 assertThat(date.month(), equalTo(0));
             }
 
@@ -89,7 +87,7 @@ class Iso8601DateTest {
             void should_access_month_with_all_date_formats(
                 String value, @SuppressWarnings("unused") Integer expectedYear, Integer expectedMonth
             ) {
-                Iso8601Date date = new Iso8601DateImpl(value);
+                Iso8601Date date = new EhrDate(value);
 
                 Integer result = date.month();
 
@@ -103,13 +101,13 @@ class Iso8601DateTest {
 
             @Test
             void should_access_day() {
-                Iso8601Date date = new Iso8601DateImpl("2023-08-18");
+                Iso8601Date date = new EhrDate("2023-08-18");
                 assertThat(date.day(), equalTo(18));
             }
 
             @Test
             void should_return_zero_if_day_not_present() {
-                Iso8601Date date = new Iso8601DateImpl("2023-08");
+                Iso8601Date date = new EhrDate("2023-08");
                 assertThat(date.day(), equalTo(0));
             }
 
@@ -121,7 +119,7 @@ class Iso8601DateTest {
                 @SuppressWarnings("unused") Integer expectedMonth,
                 Integer expectedDay
             ) {
-                Iso8601Date date = new Iso8601DateImpl(value);
+                Iso8601Date date = new EhrDate(value);
                 assertThat(date.day(), equalTo(expectedDay));
             }
         }
@@ -132,7 +130,7 @@ class Iso8601DateTest {
 
             @Test
             void should_allow_void_value_for_timezone() {
-                Iso8601Date date = new Iso8601DateImpl("2023-08-18");
+                Iso8601Date date = new EhrDate("2023-08-18");
 
                 Iso8601Timezone timezone = date.timezone();
 
@@ -141,7 +139,7 @@ class Iso8601DateTest {
 
             @Test
             void should_access_timezone() {
-                Iso8601Date date = new Iso8601DateImpl("2023-08-18T+03:30");
+                Iso8601Date date = new EhrDate("2023-08-18T+03:30");
 
                 Iso8601Timezone timezone = date.timezone();
 
@@ -158,7 +156,7 @@ class Iso8601DateTest {
 
             @Test
             void should_yield_month_unknown() {
-                Iso8601Date date = new Iso8601DateImpl("2023");
+                Iso8601Date date = new EhrDate("2023");
                 assertThat(date.monthUnknown(), equalTo(true));
             }
 
@@ -170,7 +168,7 @@ class Iso8601DateTest {
                 "20230814",
             })
             void should_yield_month_known(String value) {
-                Iso8601Date date = new Iso8601DateImpl(value);
+                Iso8601Date date = new EhrDate(value);
                 assertThat(date.monthUnknown(), equalTo(false));
             }
         }
@@ -185,7 +183,7 @@ class Iso8601DateTest {
                 "20230814",
             })
             void should_yield_day_known(String value) {
-                Iso8601Date date = new Iso8601DateImpl(value);
+                Iso8601Date date = new EhrDate(value);
                 assertThat(date.dayUnknown(), equalTo(false));
             }
 
@@ -196,7 +194,7 @@ class Iso8601DateTest {
                 "202308",
             })
             void should_yield_day_unknown(String value) {
-                Iso8601Date date = new Iso8601DateImpl(value);
+                Iso8601Date date = new EhrDate(value);
                 assertThat(date.dayUnknown(), equalTo(true));
             }
         }
@@ -214,7 +212,7 @@ class Iso8601DateTest {
                 "20230814",
             })
             void should_return_original_value(String value) {
-                Iso8601Date date = new Iso8601DateImpl(value);
+                Iso8601Date date = new EhrDate(value);
                 assertThat(date.getValue(), equalTo(value));
             }
         }
@@ -229,13 +227,13 @@ class Iso8601DateTest {
                 "202308",
             })
             void should_yield_true_for_missing_day(String value) {
-                Iso8601Date date = new Iso8601DateImpl(value);
+                Iso8601Date date = new EhrDate(value);
                 assertThat(date.isPartial(), equalTo(true));
             }
 
             @Test
             void should_yield_true_for_missing_month() {
-                Iso8601Date date = new Iso8601DateImpl("2023");
+                Iso8601Date date = new EhrDate("2023");
                 assertThat(date.isPartial(), equalTo(true));
             }
 
@@ -252,7 +250,7 @@ class Iso8601DateTest {
                 "20230814T+0300",
             })
             void should_yield_false_for_complete_date(String value) {
-                Iso8601Date date = new Iso8601DateImpl(value);
+                Iso8601Date date = new EhrDate(value);
                 assertThat(date.isPartial(), equalTo(false));
             }
         }
@@ -269,7 +267,7 @@ class Iso8601DateTest {
                 "20230814T+0300",
             })
             void should_yield_false_for_basic_format(String value) {
-                Iso8601Date date = new Iso8601DateImpl(value);
+                Iso8601Date date = new EhrDate(value);
                 assertThat(date.isExtended(), equalTo(false));
             }
 
@@ -280,7 +278,7 @@ class Iso8601DateTest {
                 "2023-08-14T+03:00",
             })
             void should_yield_true_for_extended_format(String value) {
-                Iso8601Date date = new Iso8601DateImpl(value);
+                Iso8601Date date = new EhrDate(value);
                 assertThat(date.isExtended(), equalTo(true));
             }
         }
@@ -299,7 +297,7 @@ class Iso8601DateTest {
                 "20230819T+0300, 2023-08-19T+03:00",
             }, useHeadersInDisplayName = true)
             void should_format_transform_base_format_to_extended_format(String value, String expectedResult) {
-                Iso8601Date date = new Iso8601DateImpl(value);
+                Iso8601Date date = new EhrDate(value);
                 assertThat(date.asString(), equalTo(expectedResult));
             }
 
@@ -319,7 +317,7 @@ class Iso8601DateTest {
                 "2023-08-19T+03:00, 2023-08-19T+03:00",
             }, useHeadersInDisplayName = true)
             void should_keep_extended_format(String value, String expectedResult) {
-                Iso8601Date date = new Iso8601DateImpl(value);
+                Iso8601Date date = new EhrDate(value);
                 assertThat(date.asString(), equalTo(expectedResult));
             }
         }
