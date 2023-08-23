@@ -6,6 +6,8 @@ import static org.hamcrest.Matchers.equalTo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.openehr.base.foundation_types.time.Iso8601Duration;
 
 class Iso8601DurationTest {
@@ -65,6 +67,28 @@ class Iso8601DurationTest {
         void should_access_number_of_weeks() {
             Iso8601Duration duration = new Iso8601DurationImpl("P12W");
             assertThat(duration.weeks(), equalTo(12));
+        }
+    }
+
+    @Nested
+    @DisplayName("#isDecimalSignComma")
+    class IsDecimalSignComma {
+
+        @ValueSource(strings = {
+            "PT42.5S",
+            "PT42S",
+            "P12W",
+        })
+        @ParameterizedTest
+        void should_yield_false(String value) {
+            Iso8601Duration duration = new Iso8601DurationImpl(value);
+            assertThat(duration.isDecimalSignComma(), equalTo(false));
+        }
+
+        @Test
+        void should_yield_true() {
+            Iso8601Duration duration = new Iso8601DurationImpl("PT42,5S");
+            assertThat(duration.isDecimalSignComma(), equalTo(true));
         }
     }
 }

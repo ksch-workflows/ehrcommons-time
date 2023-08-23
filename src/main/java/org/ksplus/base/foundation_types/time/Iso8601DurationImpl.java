@@ -133,7 +133,7 @@ public class Iso8601DurationImpl extends TimeDefinitionsImpl implements Iso8601D
 
     @Override
     public Boolean isDecimalSignComma() {
-        return null;
+        return value.contains(",");
     }
 
     @Override
